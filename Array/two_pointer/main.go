@@ -2,31 +2,34 @@ package main
 
 import "fmt"
 
-func revertText(s string) []rune {
-	runes := []rune(s)
+func revertText(text string) {
+	//Primeiro vc transforma a string em um rune "OLA" = ["O", "L", "A"]
+	runes := []rune(text)
 
-	// start marks the first index of the current word
+	//Definir o index do primeiro ponto
 	start := 0
 
-	// i walks through the string; when we hit a space (or the end), we reverse the word [start, i-1]
+	//Fazer loop, para mover o segundo ponto para o final da palavra
 	for i := 0; i <= len(runes); i++ {
+		//Se o segundo ponto chegar ao final do texto ou a um espaço ele iniciar a troca de letras
 		if i == len(runes) || runes[i] == ' ' {
+			//Define a posição da primeira e ultima letra
 			left, right := start, i-1
+			//Enquanto as posições não forem iguais faz as trocas delas
 			for left < right {
 				runes[left], runes[right] = runes[right], runes[left]
 				left++
 				right--
 			}
-			// next word starts after the space
+			//Define o novo ponto inicia na proxima palavra
 			start = i + 1
 		}
 	}
 
-	return runes
+	fmt.Println(string(runes))
 }
 
 func main() {
-	text := "Hello Word"
-	textRevert := revertText(text)
-	fmt.Printf("%c", textRevert)
+	text := "Hello World "
+	revertText(text)
 }
